@@ -1,0 +1,24 @@
+sudo: required
+
+services:
+- docker
+
+language: node_js
+node_js:
+- "10.12.0"
+cache: npm
+
+git:
+  depth: 3
+
+env:
+- NODE_ENV=development
+
+install:
+- npm install
+
+after_success:
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker pull arysbot/grpclb_test:latest
+- docker build -t arysbot/grpclb_test:latest .
+- docker push arysbot/grpclb_test:latest

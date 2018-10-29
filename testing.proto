@@ -1,0 +1,16 @@
+syntax = "proto3";
+package testing;
+
+service Stuff {
+    rpc doStuff(StuffRequest) returns (StuffResponse) {}
+}
+
+message StuffRequest {
+    string name = 1;
+    string host = 2;
+}
+
+message StuffResponse {
+    string message = 1;
+    string host = 2;
+}
