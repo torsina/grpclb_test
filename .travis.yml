@@ -1,22 +1,20 @@
 sudo: required
-
 services:
 - docker
-
 language: node_js
 node_js:
-- "10.12.0"
+- 10.12.0
 cache: npm
-
 git:
   depth: 3
-
 env:
-- NODE_ENV=development
-
+  matrix:
+  - NODE_ENV=development
+  - DOCKER_USERNAME=arysbot
+  global:
+    secure: HhNOVtTjktkgkoCaYvpXInDMCMfFiPzClhYnvDtBjeON8KAxOfnKqogNj+H7oRb/Uwwnt4LcHZw5CtvFaMb/bETh+Q8g9He3Ovl94B7mMsSoAbFO2RhoV7o9rqnRFDzixg3tT9amJ++oXzbmA1CfLgAopF61WTGIPNJXdZnSXvzn4zTXpbmG4hCFkQoWYNdPFqHDQligkm6IKuHt6lfmuQmGWy+QHHks39r7DgYpYMVP2jCUVVDEevfpOm+ryNYEvh4rjcch1nQMafGHTw6Fgz03wS7XWPzbLLR7iDzsZOFaU2oZsGOIrrTy+rk88UATUohrnX7xQgG0wq9mexT9nORCfKolFKHfW/C6abO5nStkPwN0NTjXXHkEoDvhA3dpLKj+/ItTZgRAOceWlCRDKEmeLcMAzunh8E5PV4lAcX95q1f/zkxz7QbGdIlqmKvjnTk3IZMqonVbLCGoGiYjtgbotEVE07nJ02dAfRshHV5+8fbOwKFW8wQzKuGQGWly2bc6NPM8IewfNJV1NtW4PwNB9ZXoZYeWbIzRGibi2/RB8UBdvorlzD9pWeU49j4afSVa9gH5DowmzRwZcqNHxmSjceBP3OB6TFXBLgsn2zzhdOEslbNYz6EmYR7EJitp3ZhTyglJJ/ZP4h39NlHg0g10p9IDcaa1y+MZtV3E0h0=
 install:
 - npm install
-
 after_success:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker pull arysbot/grpclb_test:latest
